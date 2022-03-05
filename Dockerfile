@@ -1,3 +1,3 @@
 FROM scratch
-COPY seed /
-ENTRYPOINT ["/seed"]
+COPY rest-example /
+ENTRYPOINT ["/rest-example"]

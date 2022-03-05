@@ -16,10 +16,10 @@
             "source.organizeImports": true,
         },
     },
-
     // golangci-lint  
     "go.lintTool": "golangci-lint",
     "go.lintFlags": [
         "--fast"
-    ]
+    ],
+    "go.inferGopath": false
 }
