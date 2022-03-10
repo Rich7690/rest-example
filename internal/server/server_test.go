@@ -2,11 +2,11 @@ package server
 
 import (
 	"bytes"
+	"crypto/rand"
 	"io"
 	"io/fs"
 	"io/ioutil"
 	"log"
-	"crypto/rand"
 	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
@@ -40,7 +40,7 @@ func TestFileUpload(t *testing.T) {
 
 	rw = httptest.NewRecorder()
 	r = httptest.NewRequest(http.MethodGet, "/file?key=foo", nil)
-	r.URL.Query().Set("key", "foo")
+	r.URL.RawQuery = "key=foo"
 
 	getUploadedFileHandler()(rw, r)
 

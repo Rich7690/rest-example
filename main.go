@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+	log.Println("Starting Server")
 	ctx, cancel := context.WithCancel(context.Background())
 
 	sigs := make(chan os.Signal, 1)

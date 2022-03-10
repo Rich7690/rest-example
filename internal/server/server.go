@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"sync"
 )
 
 // MaxUploadSize is the Max file size.
@@ -20,7 +21,8 @@ func StartServer(ctx context.Context) error {
 	return http.ListenAndServe(":2113", mux)
 }
 
-var fileContent = make(map[string][]byte)
+// example project and not a production way to do this.
+var fileContent sync.Map
 
 func getUploadedFileHandler() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -33,12 +35,12 @@ func getUploadedFileHandler() func(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Invalid key", http.StatusBadRequest)
 			return
 		}
-		content := fileContent[key]
-		if len(content) == 0 {
+		content, ok := fileContent.Load(key)
+		if !ok {
 			w.WriteHeader(http.StatusNotFound)
 			return
 		}
-		w.Write(fileContent[key])
+		w.Write(content.([]byte))
 	}
 }
 
@@ -74,7 +76,7 @@ func getFileUploadHandler() func(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Failed to read body", http.StatusInternalServerError)
 			return
 		}
-		fileContent[key] = buf
+		fileContent.Store(key, buf)
 		w.WriteHeader(http.StatusOK)
 	}
 }
