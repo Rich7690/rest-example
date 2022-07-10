@@ -17,10 +17,10 @@ release:
   prerelease: auto
 dockers:
   - image_templates:
-      - "ghcr.io/rtdev7690/{{ .ProjectName }}:latest"
-      - "ghcr.io/rtdev7690/{{ .ProjectName }}:{{ .Major }}"
-      - "ghcr.io/rtdev7690/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}"
-      - "ghcr.io/rtdev7690/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
+      - "ghcr.io/rich7690/{{ .ProjectName }}:latest"
+      - "ghcr.io/rich7690/{{ .ProjectName }}:{{ .Major }}"
+      - "ghcr.io/rich7690/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}"
+      - "ghcr.io/rich7690/{{ .ProjectName }}:{{ .Major }}.{{ .Minor }}.{{ .Patch }}"
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
